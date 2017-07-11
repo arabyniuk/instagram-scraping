@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711091940) do
+ActiveRecord::Schema.define(version: 20170711113555) do
 
   create_table "hotels", force: :cascade do |t|
     t.string  "name_japanese"
@@ -21,6 +21,26 @@ ActiveRecord::Schema.define(version: 20170711091940) do
     t.string  "address"
     t.decimal "latitude",             precision: 10, scale: 6
     t.decimal "longitude",            precision: 10, scale: 6
+  end
+
+  create_table "instagram_posts", force: :cascade do |t|
+    t.date    "date"
+    t.string  "photo"
+    t.integer "likes"
+    t.string  "poster"
+    t.integer "poster_followers_count"
+    t.integer "comments_count"
+    t.integer "hotel_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",                     null: false
+    t.integer  "item_id",                       null: false
+    t.string   "event",                         null: false
+    t.string   "whodunnit"
+    t.text     "object",     limit: 1073741823
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
 end

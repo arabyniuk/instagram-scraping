@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170711113555) do
+ActiveRecord::Schema.define(version: 20170712081108) do
 
   create_table "hotels", force: :cascade do |t|
     t.string  "name_japanese"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20170711113555) do
     t.string  "former_name"
     t.integer "rooms_count"
     t.string  "address"
-    t.decimal "latitude",             precision: 10, scale: 6
-    t.decimal "longitude",            precision: 10, scale: 6
+    t.decimal "latitude",                        precision: 10, scale: 6
+    t.decimal "longitude",                       precision: 10, scale: 6
+    t.integer "location_id",          limit: 32
   end
 
   create_table "instagram_posts", force: :cascade do |t|

@@ -38,6 +38,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'paper_trail'
 
 gem 'carrierwave'
+gem 'poltergeist'
+gem 'figaro'
+gem 'httparty'
+gem 'instagram'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -13,7 +13,7 @@ class InstagramApi
 
     def get_location_id(coordinates = {})
       get_access_token = HTTParty.get('http://localhost:3000/get_access_token')
-      client = Instagram.client(:access_token =>  JSON.parse(get_access_token.body)['access_token'])
+      client = Instagram.client(:access_token => JSON.parse(get_access_token.body)['access_token'])
       begin
         location = client.location_search(coordinates.fetch(:lat), coordinates.fetch(:lon), '5000')
       rescue Instagram::BadRequest => e
@@ -25,8 +25,24 @@ class InstagramApi
       location.first['id'].to_i if location
     end
 
-    def tag_path(tag)
-      "https://www.instagram.com/explore/tags/instagood/#{tag}"
+    def tag_path(tag, end_cursor = nil)
+      "https://www.instagram.com/explore/tags/#{tag}/?__a=1#{max_id(end_cursor)}"
+    end
+
+    def max_id(end_cursor)
+      end_cursor ? "&max_id=#{end_cursor}" : ""
+    end
+
+    def media_path(code)
+      "https://www.instagram.com/p/#{code}/?__a=1"
+    end
+
+    def location_path(location_id)
+      "https://www.instagram.com/explore/locations/#{location_id}/"
+    end
+
+    def user_path(username)
+      "https://www.instagram.com/#{username}/?__a=1"
     end
   end
 end

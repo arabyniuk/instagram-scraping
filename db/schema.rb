@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712081108) do
+ActiveRecord::Schema.define(version: 20170713121625) do
 
   create_table "hotels", force: :cascade do |t|
     t.string  "name_japanese"
@@ -25,13 +25,21 @@ ActiveRecord::Schema.define(version: 20170712081108) do
   end
 
   create_table "instagram_posts", force: :cascade do |t|
-    t.date    "date"
-    t.string  "photo"
-    t.integer "likes"
-    t.string  "poster"
-    t.integer "poster_followers_count"
-    t.integer "comments_count"
-    t.integer "hotel_id"
+    t.datetime "date_time"
+    t.string   "media_link"
+    t.integer  "likes"
+    t.string   "poster"
+    t.integer  "comments_count"
+    t.integer  "hotel_id"
+    t.string   "code"
+    t.text     "caption"
+    t.integer  "poster_id",      limit: 20
+  end
+
+  create_table "posters", force: :cascade do |t|
+    t.string  "username"
+    t.integer "followers_count"
+    t.integer "owner_id",        limit: 20
   end
 
   create_table "versions", force: :cascade do |t|

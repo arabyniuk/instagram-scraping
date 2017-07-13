@@ -37,7 +37,6 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'paper_trail'
 
-gem 'carrierwave'
 gem 'poltergeist'
 gem 'figaro'
 gem 'httparty'

@@ -4,6 +4,9 @@ class AuthController < ApplicationController
   def callback
     response = Instagram.get_access_token(params[:code], :redirect_uri => 'http://localhost:3000/callback')
     $access_token = response.access_token
+    puts "-----------"
+    puts $access_token
+    puts "-----------"
     head :no_content
   end
 
@@ -14,6 +17,9 @@ class AuthController < ApplicationController
   private
 
   def check_access_token
+    puts "-----------"
+    puts "request token"
+    puts "-----------"
     InstagramApi.request_access_token
   end
 end

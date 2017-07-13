@@ -1,10 +1,11 @@
-class ScrapeMediaByTag
+class ScrapeMediaList
   def initialize(hotel_data)
-    @tag = hotel_data[:tag]
+    @type = hotel_data.keys.first.to_s
+    @item = hotel_data[@type.to_sym]
     @hotel_id = hotel_data[:hotel_id]
     @all_nodes = []
 
-    return if page_data(hotel_data[:tag])['tag']['media']['count'].zero?
+    return if page_data(hotel_data[@type.to_sym])[@type]['media']['count'].zero?
     get_all_nodes
   end
 
@@ -50,16 +51,16 @@ class ScrapeMediaByTag
   end
 
   def get_all_nodes(end_cursor=nil)
-    page_data = page_data(@tag, end_cursor)
-    @all_nodes << page_data.dig('tag','media','nodes')
+    page_data = page_data(@item, end_cursor)
+    @all_nodes << page_data.dig(@type,'media','nodes')
 
-    if page_data.dig('tag','media','page_info','end_cursor')
-      get_all_nodes(page_data.dig('tag','media','page_info','end_cursor'))
+    unless page_data.dig(@type,'media','page_info','end_cursor').blank?
+      get_all_nodes(page_data.dig(@type,'media','page_info','end_cursor'))
     end
   end
 
-  def page_data(tag, end_cursor=nil)
-    json = HTTParty.get(URI.encode(InstagramApi.tag_path(tag, end_cursor)))
+  def page_data(item, end_cursor=nil)
+    json = HTTParty.get(URI.encode(InstagramApi.media_list_path(item, end_cursor)))
   end
 
   def username(code)

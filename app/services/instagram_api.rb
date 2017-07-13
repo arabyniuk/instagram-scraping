@@ -25,8 +25,12 @@ class InstagramApi
       location.first['id'].to_i if location
     end
 
-    def tag_path(tag, end_cursor = nil)
-      "https://www.instagram.com/explore/tags/#{tag}/?__a=1#{max_id(end_cursor)}"
+    def media_list_path(item, end_cursor = nil)
+      if item.is_a? Integer
+       "https://www.instagram.com/explore/locations/#{item}/?__a=1#{max_id(end_cursor)}"
+      else
+        "https://www.instagram.com/explore/tags/#{item}/?__a=1#{max_id(end_cursor)}"
+      end
     end
 
     def max_id(end_cursor)
@@ -35,10 +39,6 @@ class InstagramApi
 
     def media_path(code)
       "https://www.instagram.com/p/#{code}/?__a=1"
-    end
-
-    def location_path(location_id)
-      "https://www.instagram.com/explore/locations/#{location_id}/"
     end
 
     def user_path(username)

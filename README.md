@@ -1,24 +1,76 @@
-# README
+# Instagram Scraping
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Configuration
 
-Things you may want to cover:
+You should have application.yml file first and put it into config/ folder.
 
-* Ruby version
+## Seed
 
-* System dependencies
+Launch app first:
 
-* Configuration
+```console
+$ bundle exec rake db:create
+$ bundle exec rake db:migrate
+$ bundle exec rails s
+```
 
-* Database creation
+To seed db with Hotel from csv:
 
-* Database initialization
+```console
+$ bundle exec rake db:seed
+```
 
-* How to run the test suite
+It also get location_id number by latitude/longitude via instagram API
+through Rails model callback.
 
-* Services (job queues, cache servers, search engines, etc.)
+Note: there are just 500 requests/hour to Instagram API. One hotel - one
+request.
 
-* Deployment instructions
+## Location Id
 
-* ...
+To get location_id manually for a Hotel record with latitude/longitude
+value, if it exist:
+
+```ruby
+Hotel.find(%id%).set_location_id
+```
+
+## Track changes on InstagramPost and Poster model
+
+Basic usage:
+
+```ruby
+widget = Widget.find 153
+widget.name                                 # 'Doobly'
+
+# Add has_paper_trail to Widget model.
+
+widget.versions                             # []
+widget.update_attributes name: 'Wotsit'
+widget.versions.last.reify.name             # 'Doobly'
+widget.versions.last.event                  # 'update'
+```
+
+More info: https://github.com/airblade/paper_trail
+
+## Scrape media list and poster manually
+
+To launch scraping media list with tag and location_id manually:
+
+```console
+$ bundle exec rake instagram_scraper:media_link
+```
+
+Check poster info changes:
+
+```console
+$ bundle exec rake instagram_scraper:poster_info
+```
+
+## Cron job
+
+to apply cron-tasks in development env:
+
+```console
+$ whenever --update-crontab --set environment=development 
+```

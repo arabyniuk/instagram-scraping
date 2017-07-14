@@ -46,7 +46,8 @@ class ScrapeMediaList
       hotel_id: @hotel_id,
       code: node['code'],
       caption: node['caption'],
-      poster_id: poster.id
+      poster_id: poster.id,
+      reference_type: Hotel::REFERENCE_TYPES[@type.to_sym]
     )
   end
 

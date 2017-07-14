@@ -2,7 +2,7 @@ class AuthController < ApplicationController
   before_action :check_access_token, only: [:get_access_token], unless: -> { $access_token }
 
   def callback
-    response = Instagram.get_access_token(params[:code], :redirect_uri => 'http://localhost:3000/callback')
+    response = Instagram.get_access_token(params[:code], redirect_uri: "#{ENV['host']}/callback")
     $access_token = response.access_token
     puts "-----------"
     puts $access_token

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713121625) do
+ActiveRecord::Schema.define(version: 20170714153315) do
 
   create_table "hotels", force: :cascade do |t|
     t.string  "name_japanese"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170713121625) do
     t.string   "code"
     t.text     "caption"
     t.integer  "poster_id",      limit: 20
+    t.string   "reference_type"
   end
 
   create_table "posters", force: :cascade do |t|

@@ -1,7 +1,7 @@
 require 'capybara/poltergeist'
 
 options = {
-  timeout: 120
+  timeout: 300
 }
 
 Capybara.register_driver :poltergeist do |app|

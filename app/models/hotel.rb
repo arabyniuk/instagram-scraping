@@ -12,4 +12,8 @@ class Hotel < ApplicationRecord
   def tag_name
     name.downcase.tr(" ", "_")
   end
+
+  def name_variations
+    name.downcase.split(' ').permutation.to_a.map { |x| x.join('_') }
+  end
 end

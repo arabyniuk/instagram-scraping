@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170714153315) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "hotels", force: :cascade do |t|
     t.string  "name_japanese"
     t.string  "name"
@@ -19,9 +22,9 @@ ActiveRecord::Schema.define(version: 20170714153315) do
     t.string  "former_name"
     t.integer "rooms_count"
     t.string  "address"
-    t.decimal "latitude",                        precision: 10, scale: 6
-    t.decimal "longitude",                       precision: 10, scale: 6
-    t.integer "location_id",          limit: 32
+    t.decimal "latitude",             precision: 10, scale: 6
+    t.decimal "longitude",            precision: 10, scale: 6
+    t.bigint  "location_id"
   end
 
   create_table "instagram_posts", force: :cascade do |t|
@@ -33,24 +36,24 @@ ActiveRecord::Schema.define(version: 20170714153315) do
     t.integer  "hotel_id"
     t.string   "code"
     t.text     "caption"
-    t.integer  "poster_id",      limit: 20
+    t.bigint   "poster_id"
     t.string   "reference_type"
   end
 
   create_table "posters", force: :cascade do |t|
     t.string  "username"
     t.integer "followers_count"
-    t.integer "owner_id",        limit: 20
+    t.bigint  "owner_id"
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                     null: false
-    t.integer  "item_id",                       null: false
-    t.string   "event",                         null: false
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
     t.string   "whodunnit"
-    t.text     "object",     limit: 1073741823
+    t.text     "object"
     t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
 end

@@ -5,7 +5,7 @@ class ScrapeMediaList
     @hotel_id = hotel_data[:hotel_id]
     @all_nodes = []
 
-    return if page_data(hotel_data[@type.to_sym])[@type]['media']['count'].zero?
+    return if page_data(hotel_data[@type.to_sym]).fetch(@type, {}).fetch('media', {}).fetch('count', 0).zero?
     get_all_nodes
   end
 

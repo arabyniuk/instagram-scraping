@@ -55,6 +55,12 @@ More info: https://github.com/airblade/paper_trail
 
 ## Scrape media list and poster manually
 
+You must launch sidekiq first:
+
+```console
+$ bundle exec sidekiq
+```
+
 To launch scraping media list with tag and location_id manually:
 
 ```console

@@ -41,6 +41,8 @@ gem 'poltergeist'
 gem 'figaro'
 gem 'httparty'
 gem 'instagram'
+gem 'sidekiq'
+gem 'pg'
 
 gem 'whenever', :require => false
 

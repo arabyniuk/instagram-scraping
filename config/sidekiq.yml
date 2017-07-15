@@ -1,0 +1,14 @@
+default: &default
+  :verbose: true
+  :concurrency: 3
+  :scheduler:
+    :listened_queues_only: true
+  :queues:
+    - default
+    - mailers
+
+development:
+  <<: *default
+
+test:
+  <<: *default

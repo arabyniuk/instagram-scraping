@@ -55,6 +55,9 @@ class ScrapeMediaList
     page_data = page_data(@item, end_cursor)
     @all_nodes << page_data.dig(@type,'media','nodes')
 
+
+    puts "Hotel_id: #{@hotel_id} -----  count: #{@all_nodes.flatten.size} "
+
     unless page_data.dig(@type,'media','page_info','end_cursor').blank?
       get_all_nodes(page_data.dig(@type,'media','page_info','end_cursor'))
     end
@@ -66,12 +69,12 @@ class ScrapeMediaList
 
   def username(code)
     json = HTTParty.get(InstagramApi.media_path(code))
-    json.dig('graphql','shortcode_media','owner','username')
+    json.fetch('graphql', {}).fetch('shortcode_media', {}).fetch('owner', {}).fetch('username', nil)
   end
 
   def poster_followers_count(username)
     json = HTTParty.get(InstagramApi.user_path(username))
-    json.dig('user','followed_by','count')
+    json.fetch('user', {}).fetch('followed_by', {}).fetch('count', nil)
   end
 
   def hotel
